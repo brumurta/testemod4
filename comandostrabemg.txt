@@ -60,6 +60,35 @@ MariaDB [projeto_got]> select season, episode, writer_1 from got_episodes_v4 whe
 
 
 
+PERGUNTA 5 - Mostrar quantidade de episódios agrupados por temporada e escritas por George R. R. Martin:
+
+MariaDB [got]> select  writer_1, count(episode)  from got_episodes_v4
+    -> where writer_1 = "George R.R. Martin";
+ -------------------- ---------------- 
+| writer_1           | count(episode) |
+ -------------------- ---------------- 
+| George R.R. Martin |             63 |
+ -------------------- ---------------- 
+1 row in set (0.001 sec)
+
+MariaDB [got]> select season, count(episode), writer_1 from got_episodes_v4
+    -> where writer_1 = 'George R.R. Martin'
+    -> group by season;
+ -------- ---------------- -------------------- 
+| season | count(episode) | writer_1           |
+ -------- ---------------- -------------------- 
+|      2 |             10 | George R.R. Martin |
+|      3 |             10 | George R.R. Martin |
+|      4 |             10 | George R.R. Martin |
+|      5 |             10 | George R.R. Martin |
+|      6 |             10 | George R.R. Martin |
+|      7 |              7 | George R.R. Martin |
+|      8 |              6 | George R.R. Martin |
+ -------- ---------------- -------------------- 
+7 rows in set (0.001 sec)
+
+
+
 TABELA 2: 
 
 PERGUNTA 1 -  Quais atores apareceram mais que 60 vezes na série?
@@ -94,18 +123,6 @@ MariaDB [projeto4_got]> select count(ator) from characters_v4 where First_appear
  ------------- 
 |         101 |
  ------------- 
-1 row in set (0.001 sec)
-
-
-PERGUNTA 4 - Quando foi a ultima aparição do ator Peter Dinklage?
-
-
-MariaDB [projeto4_got]> select ator, Last_appearance from characters_v4 where ator = "Peter Dinklage";
- ---------------- ----------------- 
-| ator           | Last_appearance |
- ---------------- ----------------- 
-| Peter Dinklage |            2019 |
- ---------------- ----------------- 
 1 row in set (0.001 sec)
 
 
